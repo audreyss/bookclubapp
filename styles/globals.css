@@ -8,3 +8,18 @@ body {
 * {
   box-sizing: border-box;
 }
+
+hr {
+  border: 1px solid #FFF7EB;
+  width: 100%;
+  margin: 20px 0px;
+}
+
+input:focus {
+  border: 3px solid #78A3C5;
+  outline: none;
+}
+
+a {
+  color: #FFECCF;
+}

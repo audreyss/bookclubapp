@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../reducers/user';
 
 function SignUp(props) {
+    const dispatch = useDispatch('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [pseudo, setPseudo] = useState('');
@@ -13,7 +14,6 @@ function SignUp(props) {
     const router = useRouter();
     
     const validateInput = (email, password) => {
-        const dispatch = useDispatch('');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]+$/;
 

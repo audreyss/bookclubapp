@@ -47,7 +47,7 @@ function SignUp(props) {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.result) {
+                if (data.token) {
                     setEmail('');
                     setPseudo('');
                     setPassword('');

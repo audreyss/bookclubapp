@@ -13,17 +13,11 @@ function SignIn(props) {
     const router = useRouter();
 
     const validateInput = (email, password) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]+$/;
-
-        if (!emailRegex.test(email)) {
+        if (!email || email == '') {
             return "L'email n'est pas valide.";
         }
-        if (password.length < 6) {
-            return "Le mot de passe doit contenir au moins 6 caractères.";
-        }
-        if (!passwordRegex.test(password)) {
-            return "Le mot de passe contient des caractères interdits.";
+        if (!password || password == '') {
+            return "Le mot de passe n'est pas valide.";
         }
         return null;
     };
@@ -35,7 +29,7 @@ function SignIn(props) {
             setError(validationError);
             return;
         }
-
+        
         fetch('http://localhost:3000/users/signin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -43,12 +37,11 @@ function SignIn(props) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                if (data.result) {
+                if (data.token) {
                     setEmail('');
                     setPassword('');
                     setError('');
-                    dispatch(login({ pseudo: data.pseudo, token: data.token }))
+                    dispatch(login({ pseudo: data.pseudo, token: data.token }));
                     router.push('/dashboard');
                 } else {
                     setError(data.error);

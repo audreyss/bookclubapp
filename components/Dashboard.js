@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Header from "./Header";
 
 function Dashboard() {
     const user = useSelector((state) => state.user.value);
@@ -15,6 +16,7 @@ function Dashboard() {
     
     return (
         <div>
+            <Header />
             Bienvenue {user.pseudo} !
         </div>
     );

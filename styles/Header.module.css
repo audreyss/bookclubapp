@@ -21,3 +21,7 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.icon_left {
+  margin-right: 10px;
+}

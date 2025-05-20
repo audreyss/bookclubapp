@@ -6,7 +6,6 @@ import Header from "./Header";
 function Dashboard() {
     const user = useSelector((state) => state.user.value);
     const router = useRouter();
-    console.log(user);
 
     useEffect(() => {
         if (!user?.token) {
@@ -17,7 +16,7 @@ function Dashboard() {
     return (
         <div>
             <Header />
-            Bienvenue {user.pseudo} !
+            Bienvenue {user.pseudo} ! 
         </div>
     );
 }

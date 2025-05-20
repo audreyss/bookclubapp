@@ -8,7 +8,7 @@ function Header() {
         <header className={styles.header}>
             <h1 className={styles.title}>BookClubBuddy</h1>
             <nav className={styles.nav}>
-                <a href='/dashboard'><FontAwesomeIcon icon={faHouse} /></a>
+                <a href='/dashboard'><FontAwesomeIcon icon={faHouse} className={styles.icon_left}/></a>
                 <a href='/account'><FontAwesomeIcon icon={faUser} /></a>
             </nav>
         </header>

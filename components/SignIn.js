@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../reducers/user';
 
 function SignIn(props) {
-    const dispatch = useDispatch('');
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -38,10 +38,10 @@ function SignIn(props) {
             .then(response => response.json())
             .then(data => {
                 if (data.token) {
+                    dispatch(login({ pseudo: data.pseudo, email, token: data.token }));
                     setEmail('');
                     setPassword('');
                     setError('');
-                    dispatch(login({ pseudo: data.pseudo, token: data.token }));
                     router.push('/dashboard');
                 } else {
                     setError(data.error);

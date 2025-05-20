@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage';
 import user from '../reducers/user';
 
 const reducers = combineReducers({ user });
-const persistConfig = { key: 'applicationName', storage };
+const persistConfig = { key: 'bookclubBuddy', storage };
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),

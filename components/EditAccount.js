@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changePseudo, changeEmail } from "../reducers/user";
+import styles from '../styles/EditAccount.module.css';
 
 
 function EditAccount(props) {
@@ -26,14 +27,12 @@ function EditAccount(props) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.result) {
                 setValue('');
                 setPassword('');
                 alert('Modification bien effectuée');
                 if (props.field === 'pseudo') dispatch(changePseudo({pseudo: value}));
                 else if (props.field === 'email') dispatch(changeEmail({email: value, token: data.token}));
-                console.log(user);
             } else {
                 alert('Erreur. ' + data.error)
             }
@@ -41,12 +40,12 @@ function EditAccount(props) {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <label htmlFor="field">{`Nouveau ${props.field}`}</label>
-            <input type={props.type} id="field" name="field" placeholder={`nouveau ${props.field}`} onChange={(e) => setValue(e.target.value)} value={value} />
+            <input className={styles.input} type={props.type} id="field" name="field" placeholder={`nouveau ${props.field}`} onChange={(e) => setValue(e.target.value)} value={value} />
 
             <label htmlFor="mdp">Mot de passe</label>
-            <input type="password" id="mdp" name="mdp" placeholder='mot de passe' onChange={(e) => setPassword(e.target.value)} value={password} />
+            <input className={styles.input} type="password" id="mdp" name="mdp" placeholder='mot de passe' onChange={(e) => setPassword(e.target.value)} value={password} />
 
             <button onClick={handleSubmit}>Modifier</button>
         </div>

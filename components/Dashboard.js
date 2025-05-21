@@ -40,11 +40,11 @@ function Dashboard() {
             <div className={styles.container}>
                 Bienvenue {user.pseudo} !
                 <div className={styles.content}>
-                    <div style={{ display: 'flex', marginBottom: '1rem', width: '100%'}}>
+                    <div className={styles.tabs}>
                         <button onClick={() => setActiveTab(0)} style={styleTabs[0]}>Clubs de lecture</button>
                         <button onClick={() => setActiveTab(1)} style={styleTabs[1]}>Evènements</button>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', width: '100%', paddingLeft: '1rem'}}>{content()}</div>
+                    <div className={styles.tabContent}>{content()}</div>
                 </div>
             </div>
         </div >

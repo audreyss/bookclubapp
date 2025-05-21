@@ -21,18 +21,16 @@
     padding-bottom: 20px;
 }
 
-.subtitle {
-    width: 100%;
+.tabs {
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
+    width: 100%;
 }
 
-.subtitleIcon {
-    margin-right: 10px;
-}
-
-.subtitleIcon:hover {
-    color: var(--button-hover);
-    cursor: pointer;
+.tabContent {
+    display: 'flex';
+    gap: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    padding-left: 1rem;
 }

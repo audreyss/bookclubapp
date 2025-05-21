@@ -1,0 +1,15 @@
+.subtitle {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.subtitleIcon {
+    margin-right: 10px;
+}
+
+.subtitleIcon:hover {
+    color: var(--button-hover);
+    cursor: pointer;
+}

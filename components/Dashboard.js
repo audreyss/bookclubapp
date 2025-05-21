@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Header from "./Header";
 import styles from '../styles/Dashboard.module.css'
+import DashboardBookclubs from "./DashboardBookclubs";
+import DashboardEvents from "./DashboardEvents";
 
 function Dashboard() {
     const user = useSelector((state) => state.user.value);
     const router = useRouter();
-    const [userBookclubs, setUserBookclubs] = useState([]);
-    const [followingBookclubs, setFollowingBookclubs] = useState([]);
+    const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
         if (!user?.token) {
@@ -18,9 +17,22 @@ function Dashboard() {
         }
     }, [user, router]);
 
-    const handleIconNew = () => {
-        console.log('New bookclub')
+    const content = () => {
+        switch (activeTab) {
+            case 0:
+                return <DashboardBookclubs />;
+            case 1:
+                return <DashboardEvents />;
+            default:
+                return null;
+        }
     };
+
+    const tabs = ['Clubs de lecture', 'Evènements'];
+    const styleTabs = tabs.map((_, idx) => {
+        if (idx === activeTab) return {fontWeight: 'bold', color: 'var(--text-light)', backgroundColor: 'var(--button-hover)'};
+        else return {};
+    })
 
     return (
         <div>
@@ -28,15 +40,11 @@ function Dashboard() {
             <div className={styles.container}>
                 Bienvenue {user.pseudo} !
                 <div className={styles.content}>
-                    <div className={styles.subtitle}>
-                        <FontAwesomeIcon icon={faPlus} className={styles.subtitleIcon} onClick={handleIconNew}/><span>Tes clubs de lecture</span>
+                    <div style={{ display: 'flex', marginBottom: '1rem', width: '100%'}}>
+                        <button onClick={() => setActiveTab(0)} style={styleTabs[0]}>Clubs de lecture</button>
+                        <button onClick={() => setActiveTab(1)} style={styleTabs[1]}>Evènements</button>
                     </div>
-                    {userBookclubs.length === 0 ? "Vous n'avez pas créé de club de lecture" : userBookclubs.map(bk => <img src={bk.icon} alt={bk.name} />)}
-                    <hr></hr>
-                    <div className={styles.subtitle}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.subtitleIcon} /><span>Les clubs de lecture que tu suis</span>
-                    </div>
-                    {followingBookclubs.length === 0 ? "Vous n'avez pas rejoint de club de lecture" : followingBookclubs.map(bk => <img src={bk.icon} alt={bk.name} />)}
+                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', width: '100%', paddingLeft: '1rem'}}>{content()}</div>
                 </div>
             </div>
         </div >

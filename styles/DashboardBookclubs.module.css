@@ -13,3 +13,64 @@
     color: var(--button-hover);
     cursor: pointer;
 }
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    padding: 4px;
+    text-align: center;
+}
+
+.modal:focus {
+    outline: none;
+}
+
+.modalTitle {
+    text-align: center;
+    font-weight: bold;
+}
+
+.inputs {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+    padding: 5px;
+}
+
+.firstRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+
+}
+
+.nameCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+}
+
+.privateCol {
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.file {
+    padding: 10px 5px;
+}
+
+.file:focus {
+    padding: 8px 3px;
+}

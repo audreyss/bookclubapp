@@ -20,13 +20,45 @@ function DashboardBookclubs() {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleClick = () => {
-        setName('');
-        setDesc('');
-        setIcon(null);
-        setPrivacy(false);
-        setOpen(false);
-        console.log('Club de lecture créé.')
+    const handleClick = async () => {
+        if (!name || !desc || !icon) {
+            alert('Il manque des informations.')
+            return;
+        }
+
+        try {
+            let res = await fetch('http://localhost:3000/bookclubs/create', {
+                method: 'POST',
+                headers: {
+                    'authorization': 'Bearer ' + user.token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, desc, privacy })
+            });
+            const dataCreate = await res.json();
+
+            const formData = new FormData();
+            formData.append('icon', icon[0]);
+
+            res = await fetch('http://localhost:3000/bookclubs/upload', {
+                method: 'POST',
+                headers: {
+                    'authorization': 'Bearer ' + user.token,
+                    'bookclub': dataCreate.bookclub._id,
+                },
+                body: formData
+            });
+            const dataUpload = await res.json();
+
+            setName('');
+            setDesc('');
+            setIcon(null);
+            setPrivacy(false);
+            setOpen(false);
+            console.log('Club de lecture créé.')
+        } catch {
+            alert('Erreur pendant la création du club de lecture.')
+        }
     };
 
     useEffect(() => {
@@ -59,7 +91,7 @@ function DashboardBookclubs() {
                         <input type='text' id='desc' name='desc' placeholder='Super club de lecture.' onChange={(e) => setDesc(e.target.value)} value={desc} />
 
                         <label htmlFor='icon'>Icone</label>
-                        <input className={styles.file} type='file' id='icon' name='icon' onChange={(e) => setIcon(e.target.files)} />
+                        <input className={styles.file} type='file' id='icon' name='icon' accept="image/*" onChange={(e) => setIcon(e.target.files)} />
 
                         <button onClick={handleClick}>Créer le club de lecture</button>
                     </div>

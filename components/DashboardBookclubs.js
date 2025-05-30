@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 function DashboardBookclubs() {
     const user = useSelector((state) => state.user.value);
     const router = useRouter();
+    const [userFollow, setUserFollow] = useState([]);
     const [userBookclubs, setUserBookclubs] = useState([]);
     const [followingBookclubs, setFollowingBookclubs] = useState([]);
     const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ function DashboardBookclubs() {
             formData.append('icon', icon[0]);
 
             res = await fetch('http://localhost:3000/bookclubs/upload', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
                     'bookclub': dataCreate.bookclub._id,
@@ -49,6 +50,17 @@ function DashboardBookclubs() {
                 body: formData
             });
             const dataUpload = await res.json();
+
+            res = await fetch('http://localhost:3000/followers/create', {
+                method: 'POST',
+                headers: {
+                    'authorization': 'Bearer ' + user.token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ bookclubId: dataCreate.bookclub._id })
+            });
+            const dataFollow = await res.json();
+            console.log(dataFollow);
 
             setName('');
             setDesc('');
@@ -65,12 +77,24 @@ function DashboardBookclubs() {
         if (!user?.token) {
             router.push('/');
         }
-    }, [user, router]);
+        fetch('http://localhost:3000/followers/user?userId=', {
+            headers: {
+                'authorization': 'Bearer ' + user.token,
+            },
+        }).then(res => res.json())
+            .then(data => {
+                setUserFollow(data.followings)
+                console.log(userFollow);
+            })
+    }, [user, router, open]);
+
+    const modoBookclubs = userFollow.filter(follow => follow.role <= 1);
+    const followBookclubs = userFollow.filter(follow => follow.role == 2);
 
     return (
         <div style={{ width: '100%' }}>
             <div className={styles.subtitle}>
-                <FontAwesomeIcon icon={faPlus} className={styles.subtitleIcon} onClick={handleOpen} /><span>Tes clubs de lecture</span>
+                <FontAwesomeIcon icon={faPlus} className={styles.subtitleIcon} onClick={handleOpen} /><span>Tes clubs de lecture en modération</span>
             </div>
             <Modal open={open} onClose={handleClose}>
                 <div className={styles.modal}>
@@ -97,12 +121,16 @@ function DashboardBookclubs() {
                     </div>
                 </div>
             </Modal>
-            {userBookclubs.length === 0 ? "Tu n'as pas créé de club de lecture" : userBookclubs.map(bk => <img src={bk.icon} alt={bk.name} />)}
+            <div className={styles.iconsContainer}>
+                {modoBookclubs.length === 0 ? "Tu es modérateur-trice d'aucun club de lecture" : modoBookclubs.map(bk => <div className={styles.bookclubIconDiv}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></div>)}
+            </div>
             <hr />
             <div className={styles.subtitle}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.subtitleIcon} /><span>Les clubs de lecture que tu suis</span>
             </div>
-            {followingBookclubs.length === 0 ? "Tu n'as pas rejoint de club de lecture" : followingBookclubs.map(bk => <img src={bk.icon} alt={bk.name} />)}
+            <div className={styles.iconsContainer}>
+                {followBookclubs.length === 0 ? "Tu n'as pas encore rejoint de club de lecture" : followBookclubs.map(bk => <div className={styles.bookclubIconDiv}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></div>)}
+            </div>
         </div>
 
     );

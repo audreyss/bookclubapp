@@ -5,13 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import styles from '../styles/DashboardBookclubs.module.css'
 import Modal from '@mui/material/Modal';
+import Link from 'next/link';
 
 function DashboardBookclubs() {
     const user = useSelector((state) => state.user.value);
     const router = useRouter();
     const [userFollow, setUserFollow] = useState([]);
-    const [userBookclubs, setUserBookclubs] = useState([]);
-    const [followingBookclubs, setFollowingBookclubs] = useState([]);
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
@@ -122,14 +121,14 @@ function DashboardBookclubs() {
                 </div>
             </Modal>
             <div className={styles.iconsContainer}>
-                {modoBookclubs.length === 0 ? "Tu es modérateur-trice d'aucun club de lecture" : modoBookclubs.map(bk => <div className={styles.bookclubIconDiv}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></div>)}
+                {modoBookclubs.length === 0 ? "Tu es modérateur-trice d'aucun club de lecture" : modoBookclubs.map((bk, i) => <div className={styles.bookclubIconDiv} key={i}><Link href={`/bookclub/${bk.id_bookclub._id}`}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></Link></div>)}
             </div>
             <hr />
             <div className={styles.subtitle}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.subtitleIcon} /><span>Les clubs de lecture que tu suis</span>
             </div>
             <div className={styles.iconsContainer}>
-                {followBookclubs.length === 0 ? "Tu n'as pas encore rejoint de club de lecture" : followBookclubs.map(bk => <div className={styles.bookclubIconDiv}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></div>)}
+                {followBookclubs.length === 0 ? "Tu n'as pas encore rejoint de club de lecture" : followBookclubs.map((bk, i) => <div className={styles.bookclubIconDiv} key={i}><Link><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></Link></div>)}
             </div>
         </div>
 

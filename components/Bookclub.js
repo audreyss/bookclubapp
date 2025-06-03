@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
 import Header from "./Header";
+import styles from '../styles/Bookclub.module.css';
 
 
 function Bookclub() {
@@ -10,6 +13,7 @@ function Bookclub() {
     const bookclubId = router.query.page;
     const [bookclub, setBookclub] = useState(null);
     const [follows, setFollows] = useState([]);
+    const [role, setRole] = useState(-1); // 0: creator, 1: moderator, 2: user
 
     useEffect(() => {
         if (!user?.token) {
@@ -42,14 +46,29 @@ function Bookclub() {
             .then(data => {
                 setFollows(data.followings)
                 console.log('follow, ', data.followings);
-
+                const userFollow = follows.filter(follow => follow.id_user.email === user.email);
+                if (userFollow.length > 0) setRole(userFollow[0]?.role);
             });
     }, [user, router]);
+
+    const handleOpenSettings = () => {
+        console.log('settings bookclub', bookclub);
+    };
 
     return (
         <>
             <Header />
-            <div>Page du club de lecture {bookclub?.name}</div>
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <img src={bookclub?.icon} alt={bookclub?.name} className={styles.icon} />
+                    <h2 className={styles.name}>{bookclub?.name}</h2>
+                    <span>{bookclub?.description}</span>
+
+                    <FontAwesomeIcon icon={faGear} className={styles.settingsIcon} onClick={handleOpenSettings} />
+                </div>
+
+            </div>
+
         </>
 
     );

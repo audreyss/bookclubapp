@@ -13,7 +13,7 @@ function Bookclub() {
     const bookclubId = router.query.page;
     const [bookclub, setBookclub] = useState(null);
     const [follows, setFollows] = useState([]);
-    const [role, setRole] = useState(-1); // 0: creator, 1: moderator, 2: user
+    const [role, setRole] = useState(3); // 0: creator, 1: moderator, 2: user, 3: user not following
 
     useEffect(() => {
         if (!user?.token) {
@@ -46,7 +46,7 @@ function Bookclub() {
             .then(data => {
                 setFollows(data.followings)
                 console.log('follow, ', data.followings);
-                const userFollow = follows.filter(follow => follow.id_user.email === user.email);
+                const userFollow = data.followings.filter(follow => follow.id_user.email === user.email);
                 if (userFollow.length > 0) setRole(userFollow[0]?.role);
             });
     }, [user, router]);
@@ -54,17 +54,29 @@ function Bookclub() {
     const handleOpenSettings = () => {
         console.log('settings bookclub', bookclub);
     };
+    const gear = role <= 1 ? <FontAwesomeIcon icon={faGear} className={styles.settingsIcon} onClick={handleOpenSettings} /> : null;
 
     return (
         <>
             <Header />
             <div className={styles.container}>
                 <div className={styles.content}>
+                    {gear}
                     <img src={bookclub?.icon} alt={bookclub?.name} className={styles.icon} />
                     <h2 className={styles.name}>{bookclub?.name}</h2>
                     <span>{bookclub?.description}</span>
-
-                    <FontAwesomeIcon icon={faGear} className={styles.settingsIcon} onClick={handleOpenSettings} />
+                    <div>
+                        Créateur-trice
+                        {follows.filter(f => f.role === 0).map((f, i) => <img src={f.id_user.icon} alt={f.id_user.pseudo} className={styles.icon} key={i} />)}
+                    </div>
+                    <div>
+                        Modérateurs-trices
+                        {follows.filter(f => f.role === 1).map((f, i) => <img src={f.id_user.icon} alt={f.id_user.pseudo} className={styles.icon} key={i} />)}
+                    </div>
+                    <div>
+                        Membres
+                        {follows.filter(f => f.role === 2).map((f, i) => <img src={f.id_user.icon} alt={f.id_user.pseudo} className={styles.icon} key={i} />)}
+                    </div>
                 </div>
 
             </div>

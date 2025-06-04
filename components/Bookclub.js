@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
 import Header from "./Header";
+import BookclubAvatar from "./BookclubAvatar";
 import styles from '../styles/Bookclub.module.css';
 
 
@@ -65,24 +68,16 @@ function Bookclub() {
                     <img src={bookclub?.icon} alt={bookclub?.name} className={styles.icon} />
                     <h2 className={styles.name}>{bookclub?.name}</h2>
                     <span>{bookclub?.description}</span>
-                    <div>
-                        Créateur-trice
-                        {follows.filter(f => f.role === 0).map((f, i) => <img src={f.id_user.icon} alt={f.id_user.pseudo} className={styles.icon} key={i} />)}
-                    </div>
-                    <div>
-                        Modérateurs-trices
-                        {follows.filter(f => f.role === 1).map((f, i) => <img src={f.id_user.icon} alt={f.id_user.pseudo} className={styles.icon} key={i} />)}
-                    </div>
-                    <div>
-                        Membres
-                        {follows.filter(f => f.role === 2).map((f, i) => <img src={f.id_user.icon} alt={f.id_user.pseudo} className={styles.icon} key={i} />)}
+                    <div className={styles.members}>
+                        <div className={styles.divCreatMod}>
+                            <BookclubAvatar name="Créateur-trice" users={follows.filter(f => f.role === 0)} />
+                            <BookclubAvatar name="Modérateurs-trices" users={follows.filter(f => f.role === 1)} />
+                        </div>
+                        <BookclubAvatar name="Membres" users={follows.filter(f => f.role === 2)} />
                     </div>
                 </div>
-
             </div>
-
         </>
-
     );
 }
 

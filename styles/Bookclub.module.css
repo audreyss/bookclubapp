@@ -45,3 +45,32 @@
 .name {
     font-size: 1.25rem;
 }
+
+.iconUser {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.followers {
+    display: flex;
+    flex-direction: column;
+}
+
+.divCreatMod {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.members {
+    padding: 50px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+}

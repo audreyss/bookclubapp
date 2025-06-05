@@ -56,7 +56,7 @@ function DashboardBookclubs() {
                     'authorization': 'Bearer ' + user.token,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ bookclubId: dataCreate.bookclub._id })
+                body: JSON.stringify({ bookclubId: dataCreate.bookclub._id, role: 0 })
             });
             const dataFollow = await res.json();
             console.log(dataFollow);
@@ -128,7 +128,7 @@ function DashboardBookclubs() {
                 <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.subtitleIcon} /><span>Les clubs de lecture que tu suis</span>
             </div>
             <div className={styles.iconsContainer}>
-                {followBookclubs.length === 0 ? "Tu n'as pas encore rejoint de club de lecture" : followBookclubs.map((bk, i) => <div className={styles.bookclubIconDiv} key={i}><Link><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></Link></div>)}
+                {followBookclubs.length === 0 ? "Tu n'as pas encore rejoint de club de lecture" : followBookclubs.map((bk, i) => <div className={styles.bookclubIconDiv} key={i}><Link href={`/bookclub/${bk.id_bookclub._id}`}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></Link></div>)}
             </div>
         </div>
 

@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear } from '@fortawesome/free-solid-svg-icons'
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
+import { faGear, faUserMinus, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import Header from "./Header";
 import BookclubAvatar from "./BookclubAvatar";
 import styles from '../styles/Bookclub.module.css';
@@ -16,7 +14,7 @@ function Bookclub() {
     const bookclubId = router.query.page;
     const [bookclub, setBookclub] = useState(null);
     const [follows, setFollows] = useState([]);
-    const [role, setRole] = useState(3); // 0: creator, 1: moderator, 2: user, 3: user not following
+    const [role, setRole] = useState(3); // 0: creator, 1: moderator, 2: user, 3: not following user
 
     useEffect(() => {
         if (!user?.token) {
@@ -57,8 +55,39 @@ function Bookclub() {
     const handleOpenSettings = () => {
         console.log('settings bookclub', bookclub);
     };
-    const gear = role <= 1 ? <FontAwesomeIcon icon={faGear} className={styles.settingsIcon} onClick={handleOpenSettings} /> : null;
 
+    const handleFollow = async () => {
+        if (role < 3) {
+            // désabonner
+            const res = await fetch(`http://localhost:3000/followers/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'authorization': 'Bearer ' + user.token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ bookclubId })
+            });
+            const data = await res.json();
+            if (data.follower.deletedCount > 1) setRole(3);
+
+        } else {
+            // s'abonner
+            const res = await fetch(`http://localhost:3000/followers/create`, {
+                method: 'POST',
+                headers: {
+                    'authorization': 'Bearer ' + user.token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ bookclubId, role: 2 })
+            });
+            const data = await res.json();
+            setRole(2);
+        }
+    };
+
+    const gear = role <= 1 ? <FontAwesomeIcon className={styles.settingsIcon} icon={faGear} onClick={handleOpenSettings} /> : null;
+    const follow = role <= 2 ? "Ne plus suivre" : "Suivre";
+    const btn = role === 0 ? null : <button className={styles.btnFollow} onClick={handleFollow}>{follow}</button>
     return (
         <>
             <Header />
@@ -68,6 +97,7 @@ function Bookclub() {
                     <img src={bookclub?.icon} alt={bookclub?.name} className={styles.icon} />
                     <h2 className={styles.name}>{bookclub?.name}</h2>
                     <span>{bookclub?.description}</span>
+                    {btn}
                     <div className={styles.members}>
                         <div className={styles.divCreatMod}>
                             <BookclubAvatar name="Créateur-trice" users={follows.filter(f => f.role === 0)} />

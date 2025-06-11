@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 import Header from "../../../components/Header";
 import BookclubAvatar from "../../../components/BookclubAvatar";
 import styles from '../../../styles/Bookclub.module.css';
@@ -51,10 +52,6 @@ function BookclubPage() {
             });
     }, [user, router]);
 
-    const handleOpenSettings = () => {
-        console.log('settings bookclub', bookclub);
-    };
-
     const handleFollow = async () => {
         if (role < 3) {
             // désabonner
@@ -84,7 +81,7 @@ function BookclubPage() {
         }
     };
 
-    const gear = role <= 1 ? <FontAwesomeIcon className={styles.settingsIcon} icon={faGear} onClick={handleOpenSettings} /> : null;
+    const gear = role <= 1 ? <Link href={`/bookclub/${bookclubId}/settings`}><FontAwesomeIcon className={styles.settingsIcon} icon={faGear} /></Link> : null;
     const follow = role <= 2 ? "Ne plus suivre" : "Suivre";
     const btn = role === 0 ? null : <button className={styles.btnFollow} onClick={handleFollow}>{follow}</button>
     return (

@@ -106,7 +106,7 @@ function DashboardBookclubs() {
                             </div>
                             <div className={styles.privateCol}>
                                 <label style={{ margin: '0px' }} htmlFor='privacy'>Privé</label>
-                                <input style={{ width: '16px' }} type='checkbox' id='privacy' name='privacy' onChange={(e) => setPrivacy(e.target.value)} value={privacy} />
+                                <input style={{ width: '16px' }} type='checkbox' id='privacy' name='privacy' onChange={(e) => setPrivacy(e.target.checked)} checked={privacy} />
                             </div>
                         </div>
 

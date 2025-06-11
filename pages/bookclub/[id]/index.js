@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear, faUserMinus, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import Header from "./Header";
-import BookclubAvatar from "./BookclubAvatar";
-import styles from '../styles/Bookclub.module.css';
+import { faGear } from '@fortawesome/free-solid-svg-icons'
+import Header from "../../../components/Header";
+import BookclubAvatar from "../../../components/BookclubAvatar";
+import styles from '../../../styles/Bookclub.module.css';
 
-
-function Bookclub() {
+function BookclubPage() {
     const user = useSelector((state) => state.user.value);
     const router = useRouter();
-    const bookclubId = router.query.page;
+    const bookclubId = router.query.id;
     const [bookclub, setBookclub] = useState(null);
     const [follows, setFollows] = useState([]);
     const [role, setRole] = useState(3); // 0: creator, 1: moderator, 2: user, 3: not following user
@@ -100,10 +99,10 @@ function Bookclub() {
                     {btn}
                     <div className={styles.members}>
                         <div className={styles.divCreatMod}>
-                            <BookclubAvatar name="Créateur-trice" users={follows.filter(f => f.role === 0)}/>
+                            <BookclubAvatar name="Créateur-trice" users={follows.filter(f => f.role === 0)} />
                             <BookclubAvatar name="Modérateurs-trices" users={follows.filter(f => f.role === 1)} />
                         </div>
-                        <BookclubAvatar name="Membres" users={follows.filter(f => f.role === 2)} size={50}/>
+                        <BookclubAvatar name="Membres" users={follows.filter(f => f.role === 2)} size={50} />
                     </div>
                 </div>
             </div>
@@ -111,4 +110,4 @@ function Bookclub() {
     );
 }
 
-export default Bookclub;
+export default BookclubPage;

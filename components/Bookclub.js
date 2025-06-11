@@ -100,10 +100,10 @@ function Bookclub() {
                     {btn}
                     <div className={styles.members}>
                         <div className={styles.divCreatMod}>
-                            <BookclubAvatar name="Créateur-trice" users={follows.filter(f => f.role === 0)} />
+                            <BookclubAvatar name="Créateur-trice" users={follows.filter(f => f.role === 0)}/>
                             <BookclubAvatar name="Modérateurs-trices" users={follows.filter(f => f.role === 1)} />
                         </div>
-                        <BookclubAvatar name="Membres" users={follows.filter(f => f.role === 2)} />
+                        <BookclubAvatar name="Membres" users={follows.filter(f => f.role === 2)} size={50}/>
                     </div>
                 </div>
             </div>

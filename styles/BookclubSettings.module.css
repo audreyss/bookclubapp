@@ -22,6 +22,34 @@
     position: relative;
 }
 
+.tabs {
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.tab {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+}
+
+.tab:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.tabContent {
+    width: 100%;
+    height: 100%;
+}
+
+.tab0 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .icon {
     width: 200px;
     height: 200px;
@@ -68,6 +96,29 @@
     cursor: pointer;
 }
 
-.iconContainer > input {
+.iconContainer>input {
     display: none;
+}
+
+.saveBtn {
+    width: 50%;
+}
+
+.tab1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 10%;
+    gap: 10px
+}
+
+.rowUser {
+    display: flex;
+    align-items: center;
+    gap: 20px
+}
+
+.deleteBtn {
+    cursor: pointer;
 }

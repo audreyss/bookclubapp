@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link';
 import Header from '../../../components/Header';
 import styles from '../../../styles/BookclubSettings.module.css';
 import BookclubSettings from "../../../components/BookclubSettings";
@@ -54,11 +57,11 @@ export default function BookClubSettingsPage() {
     const content = () => {
         switch (activeTab) {
             case 0:
-                return <BookclubSettings user={user} bookclub={bookclub}/>;
+                return <BookclubSettings user={user} bookclub={bookclub} />;
             case 1:
-                return <BookclubMod user={user} follows={follows}/>;
+                return <BookclubMod user={user} follows={follows} />;
             case 2:
-                return <BookclubMembers user={user} follows={follows}/>;
+                return <BookclubMembers user={user} follows={follows} />;
             default:
                 return null;
         }
@@ -75,6 +78,9 @@ export default function BookClubSettingsPage() {
             <Header />
             <div className={styles.container}>
                 <div className={styles.content}>
+                    <Link href={`/bookclub/${id}`}>
+                        <FontAwesomeIcon icon={faArrowLeft} className={styles.iconBack} />
+                    </Link>
                     <h1>Gestion du club <br />
                         {bookclub?.name}
                     </h1>

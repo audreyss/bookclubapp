@@ -78,7 +78,7 @@ function BookclubPage() {
         }
     };
 
-    const gear = role <= 1 ? <Link href={`/bookclub/${bookclubId}/settings`}><FontAwesomeIcon className={styles.settingsIcon} icon={faGear} /></Link> : null;
+    const gear = role < 1 ? <Link href={`/bookclub/${bookclubId}/settings`}><FontAwesomeIcon className={styles.settingsIcon} icon={faGear} /></Link> : null;
     const follow = role <= 2 ? "Ne plus suivre" : "Suivre";
     const btn = role === 0 ? null : <button className={styles.btnFollow} onClick={handleFollow}>{follow}</button>
     return (

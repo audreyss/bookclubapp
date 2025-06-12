@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect, useRef } from 'react';
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark, faM, faU, faC } from '@fortawesome/free-solid-svg-icons'
 import Avatar from '@mui/material/Avatar';
 import styles from '../styles/BookclubSettings.module.css';
 
@@ -34,9 +34,13 @@ function BookclubMembers(props) {
 
     const usersDisplay = followers.length === 0 ? "Chargement..." : followers.map(user => {
         const icon = user.role === 0 ? null : <FontAwesomeIcon icon={faXmark} className={styles.deleteBtn} onClick={(e) => handleDelete(user)} />;
+        let modo = user.role === 1 ? <FontAwesomeIcon icon={faM}/> : <FontAwesomeIcon icon={faU} />;
+        modo = user.role === 0 ? <FontAwesomeIcon icon={faC} /> : modo;
+
         return (
             <div key={user._id} className={styles.rowUser}>
                 <Avatar src={user.id_user.icon} alt={user.id_user.pseudo} variant="rounded" sx={{ width: size, height: size }} />
+                {modo}
                 {user.id_user.pseudo}
                 {icon}
             </div>

@@ -8,8 +8,6 @@ import Avatar from '@mui/material/Avatar';
 import { styled } from "@mui/material/styles";
 import styles from '../styles/BookclubSettings.module.css';
 
-
-
 function BookclubMod(props) {
     const { follows, user } = props;
     const initialized = useRef(false);

@@ -30,7 +30,7 @@ function BookclubMod(props) {
 
 
     const handleDelete = async (id) => {
-        const res = await fetch('http://localhost:3000/followers/deleteMod', {
+        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/deleteMod', {
             method: 'PUT',
             headers: {
                 'authorization': 'Bearer ' + user.token,
@@ -47,7 +47,7 @@ function BookclubMod(props) {
     };
 
     const handleAdd = async () => {
-        const res = await fetch('http://localhost:3000/followers/addMod', {
+        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/addMod', {
             method: 'PUT',
             headers: {
                 'authorization': 'Bearer ' + user.token,

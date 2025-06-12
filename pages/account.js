@@ -39,7 +39,7 @@ function AccountPage() {
             const formData = new FormData();
             formData.append('icon', icon[0]);
 
-            fetch('http://localhost:3000/accounts/uploadIcon', {
+            fetch(process.env.NEXT_PUBLIC_API_URL + 'accounts/uploadIcon', {
                 method: 'PUT',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
@@ -58,7 +58,7 @@ function AccountPage() {
             router.push('/');
         }
 
-        fetch('http://localhost:3000/accounts/user', {
+        fetch(process.env.NEXT_PUBLIC_API_URL + 'accounts/user', {
             headers: {
                 'authorization': 'Bearer ' + user.token,
             }

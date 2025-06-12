@@ -24,7 +24,7 @@ function BookclubPage() {
         if (!bookclubId) return;
 
         console.log('bookclubid', bookclubId);
-        fetch(`http://localhost:3000/bookclubs/${bookclubId}`, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + `bookclubs/${bookclubId}`, {
             headers: {
                 'authorization': 'Bearer ' + user.token,
             },
@@ -38,7 +38,7 @@ function BookclubPage() {
                 setBookclub(data.bookclub)
             });
 
-        fetch(`http://localhost:3000/followers/bookclub/${bookclubId}`, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + `followers/bookclub/${bookclubId}`, {
             headers: {
                 'authorization': 'Bearer ' + user.token,
             },
@@ -55,7 +55,7 @@ function BookclubPage() {
     const handleFollow = async () => {
         if (role < 3) {
             // désabonner
-            const res = await fetch(`http://localhost:3000/followers/delete`, {
+            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/delete', {
                 method: 'DELETE',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
@@ -68,7 +68,7 @@ function BookclubPage() {
 
         } else {
             // s'abonner
-            const res = await fetch(`http://localhost:3000/followers/create`, {
+            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/create', {
                 method: 'POST',
                 headers: {
                     'authorization': 'Bearer ' + user.token,

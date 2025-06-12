@@ -40,7 +40,7 @@ function SignUp(props) {
             return;
         }
 
-        fetch('http://localhost:3000/users/signup', {
+        fetch(process.env.NEXT_PUBLIC_API_URL + 'users/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pseudo, email, password }),

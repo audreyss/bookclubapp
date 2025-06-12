@@ -25,7 +25,7 @@ function BookclubSettings(props) {
             const formData = new FormData();
             formData.append('icon', icon[0]);
 
-            fetch('http://localhost:3000/bookclubs/upload', {
+            fetch(process.env.NEXT_PUBLIC_API_URL + 'bookclubs/upload', {
                 method: 'PUT',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
@@ -42,8 +42,7 @@ function BookclubSettings(props) {
 
     const handleSave = async () => {
         try {
-            console.log('here');
-            let res = await fetch('http://localhost:3000/bookclubs/modify', {
+            let res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'bookclubs/modify', {
                 method: 'PUT',
                 headers: {
                     'authorization': 'Bearer ' + user.token,

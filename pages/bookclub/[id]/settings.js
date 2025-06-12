@@ -24,7 +24,7 @@ export default function BookClubSettingsPage() {
 
         if (!id) return;
 
-        fetch(`http://localhost:3000/bookclubs/${id}`, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + `bookclubs/${id}`, {
             headers: {
                 'authorization': 'Bearer ' + user.token,
             },
@@ -37,7 +37,7 @@ export default function BookClubSettingsPage() {
                 setBookclub(data.bookclub);
             });
 
-        fetch(`http://localhost:3000/followers/bookclub/${id}`, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + `followers/bookclub/${id}`, {
             headers: {
                 'authorization': 'Bearer ' + user.token,
             },

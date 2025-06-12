@@ -29,8 +29,7 @@ function SignIn(props) {
             setError(validationError);
             return;
         }
-        
-        fetch('http://localhost:3000/users/signin', {
+        fetch(process.env.NEXT_PUBLIC_API_URL + 'users/signin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),

@@ -18,7 +18,7 @@ function BookclubMembers(props) {
 
 
     const handleDelete = async (member) => {
-        const res = await fetch('http://localhost:3000/followers/delete', {
+        const res = await fetch(`${process.env.REACT_APP_REACT_APP_REACT_APP_BACKEND_URL}followers/delete`, {
             method: 'DELETE',
             headers: {
                 'authorization': 'Bearer ' + user.token,

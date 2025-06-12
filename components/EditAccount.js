@@ -9,7 +9,7 @@ function EditAccount(props) {
     const dispatch = useDispatch();
     const [value, setValue] = useState('');
     const [password, setPassword] = useState('');
-    const baseUrl = 'http://localhost:3000/accounts/';
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'accounts/';
     const urls = {
         'pseudo': 'pseudo',
         'email': 'email',

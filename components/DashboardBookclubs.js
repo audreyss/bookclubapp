@@ -27,7 +27,7 @@ function DashboardBookclubs() {
         }
 
         try {
-            let res = await fetch('http://localhost:3000/bookclubs/create', {
+            let res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'bookclubs/create', {
                 method: 'POST',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
@@ -40,7 +40,7 @@ function DashboardBookclubs() {
             const formData = new FormData();
             formData.append('icon', icon[0]);
 
-            res = await fetch('http://localhost:3000/bookclubs/upload', {
+            res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'bookclubs/upload', {
                 method: 'PUT',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
@@ -50,7 +50,7 @@ function DashboardBookclubs() {
             });
             const dataUpload = await res.json();
 
-            res = await fetch('http://localhost:3000/followers/create', {
+            res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/create', {
                 method: 'POST',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
@@ -76,7 +76,7 @@ function DashboardBookclubs() {
         if (!user?.token) {
             router.push('/');
         }
-        fetch('http://localhost:3000/followers/user?userId=', {
+        fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/user?userId=', {
             headers: {
                 'authorization': 'Bearer ' + user.token,
             },

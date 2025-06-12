@@ -59,14 +59,12 @@ function DashboardBookclubs() {
                 body: JSON.stringify({ bookclubId: dataCreate.bookclub._id, role: 0 })
             });
             const dataFollow = await res.json();
-            console.log(dataFollow);
 
             setName('');
             setDesc('');
             setIcon(null);
             setPrivacy(false);
             setOpen(false);
-            console.log('Club de lecture créé.')
         } catch {
             alert('Erreur pendant la création du club de lecture.')
         }
@@ -83,7 +81,6 @@ function DashboardBookclubs() {
         }).then(res => res.json())
             .then(data => {
                 setUserFollow(data.followings)
-                console.log(userFollow);
             })
     }, [user, router, open]);
 

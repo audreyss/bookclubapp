@@ -23,7 +23,6 @@ function BookclubPage() {
 
         if (!bookclubId) return;
 
-        console.log('bookclubid', bookclubId);
         fetch(process.env.NEXT_PUBLIC_API_URL + `bookclubs/${bookclubId}`, {
             headers: {
                 'authorization': 'Bearer ' + user.token,
@@ -34,7 +33,6 @@ function BookclubPage() {
                 return res.json()
             })
             .then(data => {
-                console.log('bk: ', data.bookclub);
                 setBookclub(data.bookclub)
             });
 
@@ -46,7 +44,6 @@ function BookclubPage() {
             .then(res => res.json())
             .then(data => {
                 setFollows(data.followings)
-                console.log('follow, ', data.followings);
                 const userFollow = data.followings.filter(follow => follow.id_user.email === user.email);
                 if (userFollow.length > 0) setRole(userFollow[0]?.role);
             });

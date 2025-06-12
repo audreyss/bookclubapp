@@ -5,6 +5,7 @@ import Header from '../../../components/Header';
 import styles from '../../../styles/BookclubSettings.module.css';
 import BookclubSettings from "../../../components/BookclubSettings";
 import BookclubMod from "../../../components/BookclubMod";
+import BookclubMembers from "../../../components/BookclubMembers";
 
 export default function BookClubSettingsPage() {
     const user = useSelector((state) => state.user.value);
@@ -57,7 +58,7 @@ export default function BookClubSettingsPage() {
             case 1:
                 return <BookclubMod user={user} follows={follows}/>;
             case 2:
-                return null;
+                return <BookclubMembers user={user} follows={follows}/>;
             default:
                 return null;
         }

@@ -32,7 +32,6 @@ function BookclubMod(props) {
     const handleDelete = async (id) => {
         const res = await fetch('http://localhost:3000/followers/deleteMod', {
             method: 'PUT',
-
             headers: {
                 'authorization': 'Bearer ' + user.token,
                 'Content-Type': 'application/json'

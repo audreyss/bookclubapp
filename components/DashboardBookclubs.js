@@ -91,9 +91,10 @@ function DashboardBookclubs() {
                 method: 'PUT',
                 headers: {
                     'authorization': 'Bearer ' + user.token,
-                    // 'bookclub': dataCreate.bookclub._id,
+                    'bookclub': dataCreate.bookclub._id,
                 },
-                body: formData
+                //body: formData
+                body: JSON.stringify({ name, desc, privacy })
             });
             const dataUpload = await res.json();
 

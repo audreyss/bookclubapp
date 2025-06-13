@@ -207,7 +207,7 @@ function DashboardBookclubs() {
                             }}
                             renderInput={(params) => <TextField {...params} label="Choisir un membre" />}
                         />
-                        <Link href={`/bookclub/${valueSearch._id}`}><button>Afficher le club de lecture</button></Link>
+                        <Link href={`/bookclub/${valueSearch?._id}`}><button>Afficher le club de lecture</button></Link>
                     </div>
                 </div>
             </Modal>

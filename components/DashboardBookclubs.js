@@ -93,8 +93,7 @@ function DashboardBookclubs() {
                     'authorization': 'Bearer ' + user.token,
                     'bookclub': dataCreate.bookclub._id,
                 },
-                //body: formData
-                body: JSON.stringify({ name, desc, privacy })
+                body: formData
             });
             const dataUpload = await res.json();
 

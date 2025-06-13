@@ -24,6 +24,8 @@ function SignIn(props) {
 
 
     const handleSubmit = () => {
+        console.log(process.env.NEXT_PUBLIC_API_URL + 'users/signin');
+        console.log(`${process.env.NEXT_PUBLIC_API_URL}users/signin`);
         const validationError = validateInput(email, password);
         if (validationError) {
             setError(validationError);

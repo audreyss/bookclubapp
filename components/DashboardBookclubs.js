@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import styles from '../styles/DashboardBookclubs.module.css'
+import CustomSnackbar from './CustomSnackbar';
 import Modal from '@mui/material/Modal';
 import Link from 'next/link';
 
@@ -16,6 +17,8 @@ function DashboardBookclubs() {
     const [desc, setDesc] = useState('');
     const [privacy, setPrivacy] = useState(false); // true = private, false = public
     const [icon, setIcon] = useState(null);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -76,8 +79,9 @@ function DashboardBookclubs() {
             setIcon(null);
             setPrivacy(false);
             setOpen(false);
-
             refreshBookclubs();
+            setSnackbarOpen(true);
+
         } catch {
             alert('Erreur pendant la création du club de lecture.')
         }
@@ -89,7 +93,7 @@ function DashboardBookclubs() {
         }
 
         refreshBookclubs();
-        
+
     }, [user, router]);
 
     const modoBookclubs = userFollow.filter(follow => follow.role <= 1);
@@ -125,6 +129,8 @@ function DashboardBookclubs() {
                     </div>
                 </div>
             </Modal>
+            <CustomSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} msg="Création réussie !" />
+
             <div className={styles.iconsContainer}>
                 {modoBookclubs.length === 0 ? "Tu es modérateur-trice d'aucun club de lecture" : modoBookclubs.map((bk, i) => <div className={styles.bookclubIconDiv} key={i}><Link href={`/bookclub/${bk.id_bookclub._id}`}><img src={bk.id_bookclub.icon} alt={bk.id_bookclub.name} className={styles.bookclubIcon} /></Link></div>)}
             </div>

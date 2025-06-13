@@ -14,12 +14,23 @@ function DashboardBookclubs() {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
-    const [privacy, setPrivacy] = useState(true); // true = public, false = private
+    const [privacy, setPrivacy] = useState(false); // true = private, false = public
     const [icon, setIcon] = useState(null);
-
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const refreshBookclubs = () => {
+        fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/user?userId=', {
+            headers: {
+                'authorization': 'Bearer ' + user.token,
+            },
+        }).then(res => res.json())
+            .then(data => {
+                setUserFollow(data.followings)
+            })
+    };
+
     const handleClick = async () => {
         if (!name || !desc || !icon) {
             alert('Il manque des informations.')
@@ -65,6 +76,8 @@ function DashboardBookclubs() {
             setIcon(null);
             setPrivacy(false);
             setOpen(false);
+
+            refreshBookclubs();
         } catch {
             alert('Erreur pendant la création du club de lecture.')
         }
@@ -74,15 +87,10 @@ function DashboardBookclubs() {
         if (!user?.token) {
             router.push('/');
         }
-        fetch(process.env.NEXT_PUBLIC_API_URL + 'followers/user?userId=', {
-            headers: {
-                'authorization': 'Bearer ' + user.token,
-            },
-        }).then(res => res.json())
-            .then(data => {
-                setUserFollow(data.followings)
-            })
-    }, [user, router, open]);
+
+        refreshBookclubs();
+        
+    }, [user, router]);
 
     const modoBookclubs = userFollow.filter(follow => follow.role <= 1);
     const followBookclubs = userFollow.filter(follow => follow.role == 2);

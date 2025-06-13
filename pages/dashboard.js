@@ -41,8 +41,8 @@ function DashboardPage() {
                 Bienvenue {user.pseudo} !
                 <div className={styles.content}>
                     <div className={styles.tabs}>
-                        <button onClick={() => setActiveTab(0)} style={styleTabs[0]}>Clubs de lecture</button>
-                        <button onClick={() => setActiveTab(1)} style={styleTabs[1]}>Evènements</button>
+                        <button onClick={() => setActiveTab(0)} style={styleTabs[0]}>{tabs[0]}</button>
+                        <button onClick={() => setActiveTab(1)} style={styleTabs[1]}>{tabs[1]}</button>
                     </div>
                     <div className={styles.tabContent}>{content()}</div>
                 </div>

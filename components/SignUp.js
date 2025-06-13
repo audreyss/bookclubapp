@@ -66,19 +66,19 @@ function SignUp(props) {
             <h1 className={styles.title}>Welcome to BookClubBuddy</h1>
             <h2 className={styles.subtitle}>Gère ton propre club de lecture ou bien suis les dernières actualités livresques de tes clubs de lecture préférés.</h2>
             <label htmlFor="pseudo" className={styles.label}>Pseudo</label>
-            <input type="text" id="pseudo" name="pseudo" className={styles.input} placeholder='pseudo' onChange={(e) => setPseudo(e.target.value)} value={pseudo} />
+            <input type="text" id="pseudo" name="pseudo" className={styles.input} placeholder='Pseudo' onChange={(e) => setPseudo(e.target.value)} value={pseudo} />
             
             <label htmlFor="email" className={styles.label}>Email</label>
-            <input type="email" id="email" name="email" className={styles.input} placeholder='example@gmail.com' onChange={(e) => setEmail(e.target.value)} value={email} />
+            <input type="email" id="email" name="email" className={styles.input} placeholder='exemple@gmail.com' onChange={(e) => setEmail(e.target.value)} value={email} />
             
             <label htmlFor="mdp" className={styles.label}>Mot de passe</label>
-            <input type="password" id="mdp" name="mdp" className={styles.input} placeholder='mot de passe' onChange={(e) => setPassword(e.target.value)} value={password} />
+            <input type="password" id="mdp" name="mdp" className={styles.input} placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} value={password} />
             
             <button className={styles.buttonConnect} onClick={handleSubmit}>Créer un compte</button>
             {error && <span>{error}</span>}
             <hr />
 
-            <span className={styles.create}>Déjà un compte? <a href="#" onClick={(e) => { e.preventDefault(); props.onSwitch(); }}>Se connecter.</a></span>
+            <span className={styles.create}>Déjà un compte? <a href="#" onClick={(e) => { e.preventDefault(); props.onSwitch(); }}>Se connecter</a></span>
         </div>
     );
 }

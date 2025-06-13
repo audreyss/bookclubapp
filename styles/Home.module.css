@@ -30,3 +30,7 @@
   margin: 10px 0px;
   color: var(--primary-color);
 }
+
+.label {
+  margin-left: 10px;
+}
